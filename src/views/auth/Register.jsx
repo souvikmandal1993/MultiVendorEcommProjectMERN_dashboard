@@ -69,7 +69,9 @@ const Register = () => {
                 </Link>
               </p>
             </div>
-            <div className='w-full flex justify-center'></div>
+            <div className='w-full flex justify-center items-center mb-3'>
+              <div className='w-[45%] bg-slate-700 h-[1px]'></div>
+            </div>
           </form>
         </div>
       </div>
