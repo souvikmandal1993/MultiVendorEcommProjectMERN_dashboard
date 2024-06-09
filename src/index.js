@@ -1,4 +1,4 @@
-import React, { lazy } from 'react';
+import React, { lazy, Suspense } from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
@@ -8,7 +8,15 @@ const App = lazy(() => import('./App'));
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <BrowserRouter>
-    <App />
+    <Suspense
+      fallback={
+        <div className='flex items-center justify-center'>
+          <div className='w-10 h-10 border-4 border-dashed rounded-full animate-spin'></div>
+        </div>
+      }
+    >
+      <App />
+    </Suspense>
   </BrowserRouter>
 );
 
