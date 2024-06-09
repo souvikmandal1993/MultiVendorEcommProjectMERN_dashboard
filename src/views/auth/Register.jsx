@@ -1,21 +1,47 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { FaGoogle, FaFacebook } from 'react-icons/fa';
+import { FaGoogle, FaFacebook, FaEye, FaEyeSlash } from 'react-icons/fa';
 
 const Register = () => {
+  const [state, setState] = useState({
+    name: '',
+    email: '',
+    password: '',
+  });
+
+  const [passwordVisible, setPasswordVisible] = useState(false);
+
+  const inputHandle = (e) => {
+    setState({
+      ...state,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const submit = (e) => {
+    e.preventDefault();
+    console.log(state);
+  };
+
+  const togglePasswordVisibility = () => {
+    setPasswordVisible(!passwordVisible);
+  };
+
   return (
     <div className='min-w-screen min-h-screen bg-[#cdcae9] flex justify-center items-center'>
       <div className='w-[350px] text-[#ffffff] p-2'>
         <div className='bg-[#6f68d1] p-4 rounded-md'>
           <h2 className='text-xl mb-3 font-bold'>Welcome to ECommerce</h2>
           <p className='text-sm mb-3 font-medium'>
-            Please Regester Your Account
+            Please Register Your Account
           </p>
-          <form>
+          <form onSubmit={submit}>
             <div className='flex flex-col w-full gap-1 mb-3'>
               <label htmlFor='name'>Name</label>
               <input
                 className='px-3 py-2 outline-none border border-slate-400 bg-transparent rounded-md'
+                onChange={inputHandle}
+                value={state.name}
                 type='text'
                 name='name'
                 placeholder='name'
@@ -28,6 +54,8 @@ const Register = () => {
               <label htmlFor='email'>Email</label>
               <input
                 className='px-3 py-2 outline-none border border-slate-400 bg-transparent rounded-md'
+                onChange={inputHandle}
+                value={state.email}
                 type='text'
                 name='email'
                 placeholder='email'
@@ -36,16 +64,24 @@ const Register = () => {
               ></input>
             </div>
 
-            <div className='flex flex-col w-full gap-1 mb-3'>
+            <div className='flex flex-col w-full gap-1 mb-3 relative'>
               <label htmlFor='password'>Password</label>
               <input
                 className='px-3 py-2 outline-none border border-slate-400 bg-transparent rounded-md'
-                type='password'
+                onChange={inputHandle}
+                value={state.password}
+                type={passwordVisible ? 'test' : 'password'}
                 name='password'
                 placeholder='password'
                 id='password'
                 required
               ></input>
+              <div
+                className='absolute top-[25px] bottom-0 right-0 pr-3 flex items-center text-gray-200 cursor-pointer'
+                onClick={togglePasswordVisibility}
+              >
+                {passwordVisible ? <FaEyeSlash /> : <FaEye />}
+              </div>
             </div>
 
             <div className='flex items-center w-full gap-3 mb-3'>
