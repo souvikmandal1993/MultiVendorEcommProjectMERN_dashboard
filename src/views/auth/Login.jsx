@@ -2,11 +2,25 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { FaGoogle, FaFacebook, FaEyeSlash, FaEye } from 'react-icons/fa';
 
-const Login = () => {
-  const [passwordVisible, setPasswordVisible] = useState(false);
+import useShowpassword from '../../hooks/myhooks/Showpassword';
 
-  const togglePasswordVisibility = () => {
-    setPasswordVisible(!passwordVisible);
+const Login = () => {
+  const [passwordVisible, togglePasswordVisibility] = useShowpassword();
+  const [state, setState] = useState({
+    email: '',
+    password: '',
+  });
+
+  const submit = (e) => {
+    e.preventDefault();
+    console.log(state);
+  };
+
+  const inputHandle = (e) => {
+    setState({
+      ...state,
+      [e.target.name]: e.target.value,
+    });
   };
 
   return (
@@ -17,7 +31,7 @@ const Login = () => {
           <p className='text-sm mb-3 font-medium'>
             Please Login Your Account
           </p>
-          <form>
+          <form onSubmit={submit}>
             <div className='flex flex-col w-full gap-1 mb-3'>
               <label htmlFor='email'>Email</label>
               <input
@@ -26,6 +40,8 @@ const Login = () => {
                 name='email'
                 placeholder='email'
                 id='email'
+                onChange={inputHandle}
+                value={state.email}
                 required
               ></input>
             </div>
@@ -34,10 +50,12 @@ const Login = () => {
               <label htmlFor='password'>Password</label>
               <input
                 className='px-3 py-2 outline-none border border-slate-400 bg-transparent rounded-md'
-                type='password'
+                type={passwordVisible ? 'text' : 'password'}
                 name='password'
                 placeholder='password'
+                onChange={inputHandle}
                 id='password'
+                value={state.password}
                 required
               ></input>
               <div

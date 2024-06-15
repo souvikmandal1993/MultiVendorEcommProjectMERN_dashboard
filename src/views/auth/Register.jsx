@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { FaGoogle, FaFacebook, FaEye, FaEyeSlash } from 'react-icons/fa';
+import useShowpassword from '../../hooks/myhooks/Showpassword';
 
 const Register = () => {
   const [state, setState] = useState({
@@ -9,7 +10,7 @@ const Register = () => {
     password: '',
   });
 
-  const [passwordVisible, setPasswordVisible] = useState(false);
+  const [passwordVisible, togglePasswordVisibility] = useShowpassword();
 
   const inputHandle = (e) => {
     setState({
@@ -21,10 +22,6 @@ const Register = () => {
   const submit = (e) => {
     e.preventDefault();
     console.log(state);
-  };
-
-  const togglePasswordVisibility = () => {
-    setPasswordVisible(!passwordVisible);
   };
 
   return (
@@ -56,7 +53,7 @@ const Register = () => {
                 className='px-3 py-2 outline-none border border-slate-400 bg-transparent rounded-md'
                 onChange={inputHandle}
                 value={state.email}
-                type='text'
+                type='email'
                 name='email'
                 placeholder='email'
                 id='email'
